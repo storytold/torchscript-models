@@ -172,7 +172,7 @@ if trace_model:
     # NB: Getting `Tracing failed sanity checks! Graphs differed across invocations!`
     inputs = (x_tst, x_tst_lengths)
     #traced_script_module = torch.jit.trace(glow_model, inputs, check_trace=True)
-    traced_script_module = torch.jit.trace(glow_model, inputs, check_trace=False)
+    traced_script_module = torch.jit.trace(glow_model, inputs, check_trace=True)
     traced_script_module.save(output_filename)
 else:
     print('Saving script model as: {}'.format(output_filename))
