@@ -30,7 +30,7 @@ output_filename = 'melgan_trump_txlearn_2020-05-30_steno_chkpt9800.torchjit'
 trace_model = True
 if trace_model:
     print('Tracing model and saving as: {}'.format(output_filename))
-    mel_file = '/home/bt/dev/voder/data/mels/LJ002-0320.mel'
+    mel_file = './sample/LJ002-0320.mel'
     mel = torch.load(mel_file, map_location=torch.device('cpu'))
     # NB: Getting `Tracing failed sanity checks! Graphs differed across invocations!`
     traced_script_module = torch.jit.trace(melgan_model, mel, check_trace=True)
