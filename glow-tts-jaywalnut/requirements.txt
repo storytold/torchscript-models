@@ -1,0 +1,16 @@
+torch==1.3.0
+librosa==0.7.1
+scipy==1.3.0
+PyYAML==5.2
+numpy==1.16.4
+
+# To fix warnings:
+numba==0.48.0
+
+# For monotonic_align
+# (cd monotonic_align; python setup.py build_ext --inplace)
+Cython==0.29.12
+
+# Other library needs
+Unidecode==1.1.1
+inflect==4.1.0

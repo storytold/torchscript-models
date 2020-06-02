@@ -1,0 +1,6 @@
+[submodule "glow-tts-jaywalnut/glow-tts"]
+	path = glow-tts-jaywalnut/glow-tts
+	url = git@github.com:ml-applications/glow-tts.git
+[submodule "glow-tts-jaywalnut/apex"]
+	path = glow-tts-jaywalnut/apex
+	url = https://github.com/NVIDIA/apex.git
