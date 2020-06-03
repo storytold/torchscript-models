@@ -18,6 +18,41 @@ Tracing evaluates the codepath with example data, fixing the branches taken.
 
 The two techniques can be combined in the various nodes in the module tree.
 
+Porting guide
+-------------
+Here are some quick learnings on how to port models so that they work as TorchScript.
+
+**Expected integer literal for index:**
+
+```python
+    x_org = x                                                           
+    for i in range(self.n_layers):
+       x = self.conv_layers[i](x * x_mask)
+           ~~~~~~~~~~~~~~~~~~ <--- HERE    
+```
+
+Seems like we can't use non-constant indices, per [this ticket](https://github.com/pytorch/pytorch/issues/39165) and [this one](https://github.com/pytorch/pytorch/issues/16123).
+
+It's suggested to turn the loop into an `enumerate`. They also suggest [this](https://github.com/pytorch/pytorch/issues/16123#issuecomment-459424166).
+
+For iteration over two lists using the same index, use `zip`. This,
+
+```python
+for i in range(self.n_layers):
+  x = self.conv_layers[i](x * x_mask)
+  x = self.norm_layers[i](x)
+  x = self.relu_drop(x)
+```
+
+Becomes this,
+
+```python
+for conv_layer, norm_layer in zip(self.conv_layers, self.norm_layers):
+  x = conv_layer(x * x_mask)
+  x = norm_layer(x)
+  x = self.relu_drop(x)
+```
+
 Model-specific details
 ----------------------
 
