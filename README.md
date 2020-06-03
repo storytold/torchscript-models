@@ -78,7 +78,22 @@ Fix,
                 <--- HERE
 ```
 
-Unroll the double list comprehension.
+The above code is flattening a list of lists,
+
+```
+[[1, 2, 3], [4, 5, 6], [7, 8, 9]] 
+> >>> pad_shape = [item for sublist in l for item in sublist] 
+> >>> pad_shape                                     
+[1, 2, 3, 4, 5, 6, 7, 8, 9]     
+```
+
+Unroll the double list comprehension. In this particular case, `torch.flatten()` [may work](https://stackoverflow.com/questions/55546873/how-do-i-flatten-a-tensor-in-pytorch/55546907),
+
+```python
+  pad_shape = l.flatten()
+```
+
+*Note: I'm not certain this is correct yet.*
 
 
 Model-specific details
