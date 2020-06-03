@@ -53,6 +53,34 @@ for conv_layer, norm_layer in zip(self.conv_layers, self.norm_layers):
   x = self.relu_drop(x)
 ```
 
+**lhs of assignment must be a variable, subscript, or starred expression:**
+
+```python
+    x, self.attn = self.attention(q, k, v, mask=attn_mask)
+       ~~~~~~~~~ <--- HERE
+```
+
+There is an [open issue](https://github.com/pytorch/pytorch/issues/28303) for this.
+For now it looks like the best way to solve this is to just break the assignment up.
+
+Fix,
+
+```python
+    results = self.attention(q, k, v, mask=attn_mask)
+    x = results[0]
+    self.attn = results[1]
+```
+
+**torch.jit.frontend.NotSupportedError: multiple comprehension generators not supported yet:**
+
+```python
+  pad_shape = [item for sublist in l for item in sublist]
+                <--- HERE
+```
+
+Unroll the double list comprehension.
+
+
 Model-specific details
 ----------------------
 
