@@ -29,18 +29,18 @@ Only two changes!
 
 Hardcode a few constructor args. These come from `inference.py`'s arg set:
 
-```
+```python
 def forward(self, x, x_lengths, y=None, y_lengths=None, g=None, gen=False, noise_scale=1., length_scale=1.):
-	y = None
-	y_lengths = None
-	noise_scale = .667
-	length_scale = 1.0 
-	gen = True
+    y = None
+    y_lengths = None
+    noise_scale = .667
+    length_scale = 1.0 
+    gen = True
 ```
 
 Return only the mel output at the end of the `forward` branch used in tracing:
 
-```
+```python
 #return (y, y_m, y_logs, logdet), attn, logw, logw_, x_m, x_logs 
 return y
 ```
