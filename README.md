@@ -95,6 +95,29 @@ Unroll the double list comprehension. In this particular case, `torch.flatten()`
 
 *Note: I'm not certain this is correct yet.*
 
+Expected a value of type 'Tensor' for argument 'length' but instead found type 'int'.**
+
+It may necessary to type hint argument signatures. 
+
+```
+_get_relative_embeddings(__torch__.attentions.MultiHeadAttention self, Tensor relative_embeddings, Tensor length) -> (Tensor):
+```
+
+Example:
+
+```
+def _get_relative_embeddings(self, relative_embeddings, length: int):
+```
+
+Or,
+
+```
+from typing import List
+...
+
+def convert_pad_shape(pad_shape: List[List[int]]):
+```
+
 
 Model-specific details
 ----------------------

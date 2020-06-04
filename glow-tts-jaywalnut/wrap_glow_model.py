@@ -26,46 +26,9 @@ elif sys.argv[1] == 'false':
 else:
   raise Exception('Scripting or tracing?')
 
+torch.set_grad_enabled(False)
+
 def load(model_checkpoint_path):
-  #dist.init_process_group(backend='nccl', init_method='env://', world_size=n_gpus, rank=rank)
-  #torch.manual_seed(hps.train.seed)
-  #torch.cuda.set_device(rank)
-
-  #train_dataset = TextMelLoader(hps.data.training_files, hps.data)
-  #train_sampler = torch.utils.data.distributed.DistributedSampler(
-  #    train_dataset,
-  #    num_replicas=n_gpus,
-  #    rank=rank,
-  #    shuffle=True)
-  #collate_fn = TextMelCollate(1)
-  #train_loader = DataLoader(train_dataset, num_workers=8, shuffle=False,
-  #    batch_size=hps.train.batch_size, pin_memory=True,
-  #    drop_last=True, collate_fn=collate_fn, sampler=train_sampler)
-  #if rank == 0:
-  #  val_dataset = TextMelLoader(hps.data.validation_files, hps.data)
-  #  val_loader = DataLoader(val_dataset, num_workers=8, shuffle=False,
-  #      batch_size=hps.train.batch_size, pin_memory=True,
-  #      drop_last=True, collate_fn=collate_fn)
-
-  """
-  hps = utils.get_hparams()
-
-  generator = models.FlowGenerator(
-      n_vocab=len(symbols), 
-      out_channels=hps.data.n_mel_channels, 
-      **hps.model) #.cuda(rank)
-
-  optimizer_g = commons.Adam(generator.parameters(), scheduler=hps.train.scheduler, dim_model=hps.model.hidden_channels, warmup_steps=hps.train.warmup_steps, lr=hps.train.learning_rate, betas=hps.train.betas, eps=hps.train.eps)
-
-  #if hps.train.fp16_run:
-  #  generator, optimizer_g._optim = amp.initialize(generator, optimizer_g._optim, opt_level="O1")
-
-  generator = DDP(generator)
-  _, _, _, epoch_str = utils.load_checkpoint(model_checkpoint_path, generator, optimizer_g)
-
-  #optimizer_g.step_num = (epoch_str - 1) * len(train_loader)
-  #optimizer_g._update_learning_rate()
-  """
   model_dir = "./logs/base/"
   hps = utils.get_hparams_from_dir(model_dir)
   print('Checkpoint path: {}'.format(model_checkpoint_path))
@@ -85,64 +48,6 @@ def load(model_checkpoint_path):
 
   return (hps, model)
 
-"""
-model_hparams = {
-  "hidden_channels": 192,
-  "filter_channels": 768,
-  "filter_channels_dp": 256,
-  "kernel_size": 3,
-  "p_dropout": 0.1,
-  "n_blocks_dec": 12,
-  "n_layers_enc": 6,
-  "n_heads": 2,
-  "p_dropout_dec": 0.05,
-  "dilation_rate": 1,
-  "kernel_size_dec": 5,
-  "n_block_layers": 4,
-  "n_sqz": 2,
-  "prenet": True,
-  "mean_only": True,
-  "hidden_channels_enc": 192,
-  "hidden_channels_dec": 192,
-  "window_size": 4
-}
-
-# TODO:
-# num_symbols = len(symbols)
-num_symbols = 62 # TODO: Fake
-num_mel_channels = 80 # TODO: Verify
-
-load(model_checkpoint_path)
-
-generator = models.FlowGenerator(num_symbols,
-    out_channels=num_mel_channels,
-    **model_hparams) #.to("cuda")
-
-scheduler = "noam"
-hidden_channels = 192
-warmup_steps = 4000
-learning_rate = 1e0
-betas = [0.9, 0.98]
-eps = 1e-9
-
-optimizer = commons.Adam(generator.parameters(), 
-  scheduler=scheduler, 
-  dim_model=hidden_channels, 
-  warmup_steps=warmup_steps, 
-  lr=learning_rate, 
-  betas=betas, 
-  eps=eps)
-
-#if hps.train.fp16_run:
-#  generator, optimizer_g._optim = amp.initialize(generator, optimizer_g._optim, opt_level="O1")
-#""
-#_, _, _, epoch_str = utils.load_checkpoint(
-#  utils.latest_checkpoint_path(hps.model_dir, "G_*.pth"), generator, optimizer_g)
-#""
-
-glow_model, optimizer, learning_rate, iteration = \
-    utils.load_checkpoint(model_checkpoint_path, generator, optimizer)
-"""
 
 #model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut/pretrained.pth'
 model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut/G_1007.pth'
@@ -153,12 +58,23 @@ output_filename = 'output.torchjit'
 
 cmu_dict = cmudict.CMUDict(hps.data.cmudict_path)
 
-tst_stn = " testing this text to speech generator "
-sequence = np.array(text_to_sequence(tst_stn, ['english_cleaners'], cmu_dict))[None, :]
+tst_stn = "my name is donald trump and I am the president of the united states, you should respect me"
+seq = text_to_sequence(tst_stn, ['english_cleaners'], cmu_dict)
+sequence = np.array(seq)[None, :] # NB: None adds a new axis.
 print("".join([symbols[c] for c in sequence[0]]))
 
-x_tst = torch.autograd.Variable(torch.from_numpy(sequence)).long()
+torched = torch.from_numpy(sequence)
+
+x_tst = torch.autograd.Variable(torched).long()
 x_tst_lengths = torch.tensor([x_tst.shape[1]])
+
+print('\n tst_stn', len(tst_stn), tst_stn)
+print('\n seq', len(seq), seq)
+print('\n sequence', len(sequence), sequence.size, sequence)
+print('\n torched', len(torched), torched.shape, torched)
+
+print('\n x_tst', len(x_tst), x_tst)
+print('\n x_tst_lengths', len(x_tst_lengths), x_tst_lengths)
 
 
 # NB: Tracing evaluates the model on input and unrolls and hardcodes branching
@@ -172,7 +88,7 @@ if trace_model:
     # NB: Getting `Tracing failed sanity checks! Graphs differed across invocations!`
     inputs = (x_tst, x_tst_lengths)
     #traced_script_module = torch.jit.trace(glow_model, inputs, check_trace=True)
-    traced_script_module = torch.jit.trace(glow_model, inputs, check_trace=True)
+    traced_script_module = torch.jit.trace(glow_model, inputs, check_trace=False)
     traced_script_module.save(output_filename)
 else:
     print('Saving script model as: {}'.format(output_filename))
