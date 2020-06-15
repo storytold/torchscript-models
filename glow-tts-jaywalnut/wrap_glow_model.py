@@ -14,7 +14,7 @@ from text.symbols import symbols
 #from apex import amp
 #from apex.parallel import DistributedDataParallel as DDP
 
-# Data 
+# Data
 import numpy as np
 from text import text_to_sequence, cmudict
 
@@ -35,8 +35,7 @@ def load(model_checkpoint_path):
 
   with torch.no_grad():
     # NB(bt): This should fix the following:
-    # RuntimeError: Cannot insert a Tensor that requires grad as a constant. 
-    # Consider making it a parameter or input, or detaching the gradient                                                                                                                   Tensor:                                                                                                                       
+    # RuntimeError: Cannot insert a Tensor that requires grad as a constant.
     model = models.FlowGenerator(
         len(symbols),
         out_channels=hps.data.n_mel_channels,
@@ -50,15 +49,18 @@ def load(model_checkpoint_path):
 
 
 #model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut/pretrained.pth'
-model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut/G_1007.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut/glow_tts_ljs_txlearn_arpabet_2020-06-01_G_1689.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut/glow_tts_ljs_txlearn_arpabet_2020-06-01_G_2590.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut/glow_tts_ljs_txlearn_arpabet_2020-06-01_G_3614.pth'
 
 hps, glow_model = load(model_checkpoint_path)
-output_filename = 'output.torchjit'
+output_filename = 'glow_tts_ljs_txlearn_arpabet_2020-06-01_G_2590.torchjit'
+output_filename = 'glow_tts_ljs_txlearn_arpabet_2020-06-01_G_3614.torchjit'
 
 
 cmu_dict = cmudict.CMUDict(hps.data.cmudict_path)
 
-tst_stn = "my name is donald trump and I am the president of the united states, you should respect me"
+tst_stn = "This is a test of the machine learning model. How does this sound?"
 seq = text_to_sequence(tst_stn, ['english_cleaners'], cmu_dict)
 sequence = np.array(seq)[None, :] # NB: None adds a new axis.
 print("".join([symbols[c] for c in sequence[0]]))
