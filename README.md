@@ -146,3 +146,37 @@ Return only the mel output at the end of the `forward` branch used in tracing:
 return y
 ```
 
+**glow-tts multi-speaker notes**
+
+Pick up the changes from raw glow-tts, and add a few new things.
+
+The JIT code fails at runtime (in Rust evaluation) for this error:
+
+```
+error: TorchError { c_error: "The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+File \"code/__torch__/models.py\", line 1471, in forward
+rel_logits = torch.slice(torch.slice(_711, 2, 0, 56, 1), 3, 55, 9223372036854775807, 1)
+scores_local = torch.div(rel_logits, CONSTANTS.c2)
+scores0 = torch.add(scores, scores_local, alpha=1)
+~~~~~~~~~ <--- HERE
+input26 = torch.masked_fill(scores0, torch.eq(mask, 0), -10000.)
+input27 = torch.softmax(input26, -1, None)
+
+Traceback of TorchScript, original code (most recent call last):
+./glow-tts-multispeaker/attentions.py(178): attention
+./glow-tts-multispeaker/attentions.py(150): forward
+```
+
+This is in attention code. Just comment it out!
+
+```python
+    if self.window_size is not None:
+      assert t_s == t_t, "Relative attention is only available for self-attention."
+      key_relative_embeddings = self._get_relative_embeddings(self.emb_rel_k, t_s)
+      rel_logits = self._matmul_with_relative_keys(query, key_relative_embeddings)
+      rel_logits = self._relative_position_to_absolute_position(rel_logits)
+      scores_local = rel_logits / math.sqrt(self.k_channels)
+      # NB(bt): Commenting this out. I don't think it will impact evaluation?
+      # scores = scores + scores_local
+```
