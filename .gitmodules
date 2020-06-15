@@ -4,3 +4,6 @@
 [submodule "glow-tts-jaywalnut/apex"]
 	path = glow-tts-jaywalnut/apex
 	url = https://github.com/NVIDIA/apex.git
+[submodule "glow-tts-jaywalnut-multispeaker/glow-tts-multispeaker"]
+	path = glow-tts-jaywalnut-multispeaker/glow-tts-multispeaker
+	url = git@github.com:ml-applications/glow-tts-multispeaker.git
