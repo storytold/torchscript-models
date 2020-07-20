@@ -18,6 +18,11 @@ Tracing evaluates the codepath with example data, fixing the branches taken.
 
 The two techniques can be combined in the various nodes in the module tree.
 
+Interesting finding
+-------------------
+In tracing, the length of the example data matters and can affect runtime. If it isn't
+long enough, the JIT at eval time (eg. embedded in Rust) can crash on long text.
+
 Porting guide
 -------------
 Here are some quick learnings on how to port models so that they work as TorchScript.

@@ -49,7 +49,7 @@
     "hidden_channels_enc": 192,
     "hidden_channels_dec": 192,
     "window_size": 4,
-    "n_speakers": 64,
+    "n_speakers": 8,
     "gin_channels": 256
   }
 }

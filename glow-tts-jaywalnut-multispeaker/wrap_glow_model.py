@@ -50,14 +50,74 @@ def load(model_checkpoint_path):
 
 #model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut/pretrained.pth'
 model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_998.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_1063.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_1086.pth'
+
+# Training *EXPENSIVE* LJS base model on LambdaLabs Tesla GPU
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_135.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_336.pth'
+
+# NB: Had to adjust num_speakers from 64 to 8
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_44.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_142.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_264.pth'
+
+# Transfer learn from dense 8-speaker LJS base
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_309.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_325.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_337.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_541.pth'
+# Transfer learning, but with less dense LJS (1000sec total across 4 channels)
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_596.pth' # All channels taking on speaker character
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_607.pth' # Same, but better fit + enunciated words
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_757.pth' # Trump great, but dominates other speakers
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_845.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_929.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_1112.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_1204.pth'
+
+# Removed 75% of trump training data to make speakers more equal (started from 583)
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_604.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_619.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_640.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_854.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_1027.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_1227.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_1319.pth'
+
+# Restart from 1000, with more data for speakers + ronald reagan
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_1048.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_1153.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_1802.pth' # These spectrograms are amazing
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_2458.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_2898.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_3208.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_4244.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_4817.pth' # Run5: I just started "run 5", so maybe it went bad
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_4815.pth' # SAVE THIS. Run4: Last of "run 4" (best sound so far)
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_5092.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_5634.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_6045.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_6590.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_6805.pth'
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-multispeaker/G_7351.pth'
+
+# This experiment is over.
+model_checkpoint_path = '/home/bt/models/glow-tts-jaywalnut-8speaker-256gin/glow_tts_multispeaker_8-speaker_256-gin_ljs_txlearn_2020.06.19_experiment-5_chkpt-7466.pth'
 
 hps, glow_model = load(model_checkpoint_path)
 output_filename = 'glow_multispeaker.torchjit'
+output_filename = 'glow_ljs_base.torchjit'
+output_filename = 'glow_ljs_base_dense.torchjit'
+output_filename = 'glow_ljs_base_dense2.torchjit'
+output_filename = 'glow_ljs_base_dense3.torchjit'
+output_filename = 'glow_ljs_multispeaker_1.torchjit'
+output_filename = 'glow_tts_multispeaker_8-speaker_256-gin_ljs_txlearn_2020.06.19_experiment-5_chkpt-7466.torchjit'
 
 
 cmu_dict = cmudict.CMUDict(hps.data.cmudict_path)
 
-tst_stn = "This is a test of the machine learning model. How does this sound?"
+tst_stn = "This is a test of the machine learning model. How does this sound? I wonder if the length of this text has any importance whatsoever in the model evaluation. Perhaps it does. Perhaps not. Who knows?"
 seq = text_to_sequence(tst_stn, ['english_cleaners'], cmu_dict)
 sequence = np.array(seq)[None, :] # NB: None adds a new axis.
 print("".join([symbols[c] for c in sequence[0]]))
