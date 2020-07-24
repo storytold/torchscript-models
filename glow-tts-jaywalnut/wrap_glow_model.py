@@ -27,7 +27,7 @@ def parse_args():
   parser = argparse.ArgumentParser('Split audio into ingestible chunks')
   parser.add_argument('--model_file', type=str, required=True) # Input
   parser.add_argument('--output_file', type=str, required=False) # Explicitly set the filename
-  parser.add_argument('--use_default_name', default=False, action='store_true') # Save as 'glow_tts_single_speaker.torchjit'
+  parser.add_argument('--copy_name', default=False, action='store_true') # Save as '{model_name}.torchjit'
   parser.add_argument('--output_directory', type=str, required=False, default='./OUTPUT/')
 
   args = parser.parse_args()
@@ -38,13 +38,13 @@ def parse_args():
   if args.output_file and not args.output_file.endswith('.torchjit'):
     raise Exception('(Optional) JIT output filename `{}` does not end with extention `.torchjit`.'.format(args.output_file))
 
-  if args.use_default_name:
+  if args.copy_name:
     if args.output_file:
-      raise Exception('Cannot --use_default_name and set an explicit --output_file')
-    args.output_file = DEFAULT_NAME
-  elif not args.output_file:
+      raise Exception('Cannot --copy_name and set an explicit --output_file')
     basename = os.path.basename(args.model_file)
     args.output_file = os.path.splitext(basename)[0] + '.torchjit'
+  else:
+    args.output_file = DEFAULT_NAME
 
   return args
 

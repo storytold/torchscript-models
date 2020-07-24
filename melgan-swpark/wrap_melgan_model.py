@@ -80,6 +80,7 @@ output_filename = 'OUTPUT/manyvoice2.0_2020-07-08_12d5838_9170.torchjit'
 output_filename = 'OUTPUT/manyvoice2.0_2020-07-08_12d5838_9330.torchjit'
 output_filename = 'OUTPUT/manyvoice3.0_2020-07-17_12d5838_9920.torchjit'
 output_filename = 'OUTPUT/melgan-vocodes.torchjit' # Stop renaming them for a bit
+output_filename = 'OUTPUT/manyvoice3.0_2020-07-17_12d5838_10090.torchjit'
 
 #output_filename = 'OUTPUT/melgan-vocodes.torchjit' # Stop renaming them for a bit
 
