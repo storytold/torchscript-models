@@ -51,6 +51,25 @@ model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice3.0_2020-07-17_1
 model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice3.0_2020-07-17_12d5838_9960.pt'
 model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice3.0_2020-07-17_12d5838_10050.pt'
 model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice3.0_2020-07-17_12d5838_10090.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice5.0_2020-07-23_12d5838_10490.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice5.0_2020-07-23_12d5838_10750.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice5.0_2020-07-23_12d5838_10760.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice6.0_2020-07-27_12d5838_10830.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice6.0_2020-07-27_12d5838_10870.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice6.0_2020-07-27_12d5838_10880.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice6.0_2020-07-27_12d5838_10910.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/john-oliver/melgan_john_oliver_2020-07-29_12d5838_10920.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/john-oliver/melgan_john_oliver_2020-07-29_12d5838_10970.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/john-oliver/melgan_john_oliver_2020-07-29_12d5838_11000.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/john-oliver/melgan_john_oliver_2020-07-29_12d5838_13010.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/john-oliver/melgan_john_oliver_2020-07-29_12d5838_14110.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/bart-simpson/melgan_bart-simpson_58e5387_10950.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/bart-simpson/melgan_bart-simpson_58e5387_14600.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/manyvoice6.0_2020-07-27_12d5838_10910.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/bart-simpson/melgan_bart-simpson_2020.08.03_58e5387_15100.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/spongebob-squarepants/melgan_spongebob_58e5387_11575.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/spongebob-squarepants/melgan_spongebob-squarepants_2020.08.11_58e5387_11725.pt'
+model_checkpoint_path = '/home/bt/models/melgan-swpark/spongebob-squarepants/melgan_spongebob_58e5387_18725.pt'
 
 # renamed for posterity
 #model_checkpoint_path = '/home/bt/models/melgan-swpark/melgan_vocodes1.0_multispeaker_2020.06.19_12d5838_experiment-2_chkpt-10400.pt'
@@ -70,7 +89,6 @@ output_filename = 'melgan_vocodes1.0_multispeaker_2020_06_19_12d5838_6675.torchj
 output_filename = 'melgan_vocodes1.0_multispeaker_2020_06_19_12d5838_6900.torchjit'
 output_filename = 'melgan_vocodes1.0_multispeaker_2020_06_19_12d5838_7125.torchjit'
 output_filename = 'melgan_vocodes1.0_multispeaker_2020_06_19_12d5838_7400.torchjit'
-output_filename = 'melgan-vocodes.torchjit' # Stop renaming them for a bit
 output_filename = 'melgan_vocodes1.0_multispeaker_2020.06.19_12d5838_experiment-2_chkpt-10400.torchjit'
 output_filename = 'OUTPUT/manyvoice1.0_2020-06-28_12d5838_6610.torchjit'
 output_filename = 'OUTPUT/manyvoice1.0_2020-06-28_12d5838_6730.torchjit'
@@ -79,8 +97,14 @@ output_filename = 'OUTPUT/manyvoice2.0_2020-07-08_12d5838_8940.torchjit'
 output_filename = 'OUTPUT/manyvoice2.0_2020-07-08_12d5838_9170.torchjit'
 output_filename = 'OUTPUT/manyvoice2.0_2020-07-08_12d5838_9330.torchjit'
 output_filename = 'OUTPUT/manyvoice3.0_2020-07-17_12d5838_9920.torchjit'
+output_filename = 'OUTPUT/manyvoice5.0_2020-07-23_12d5838_10490.torchjit'
+output_filename = 'OUTPUT/manyvoice5.0_2020-07-23_12d5838_10490.torchjit'
+output_filename = 'OUTPUT/manyvoice5.0_2020-07-23_12d5838_10760.torchjit'
+output_filename = 'OUTPUT/melgan-vocodes-2.torchjit' # Stop renaming them for a bit
+output_filename = 'OUTPUT/melgan_bart-simpson_2020.08.03_58e5387_15100.torchjit'
+output_filename = 'OUTPUT/melgan_spongebob-squarepants_2020.08.11_58e5387_11725.torchjit'
 output_filename = 'OUTPUT/melgan-vocodes.torchjit' # Stop renaming them for a bit
-output_filename = 'OUTPUT/manyvoice3.0_2020-07-17_12d5838_10090.torchjit'
+
 
 #output_filename = 'OUTPUT/melgan-vocodes.torchjit' # Stop renaming them for a bit
 
